@@ -1,1 +1,1 @@
-# coincap
+CoinCap
