@@ -5,7 +5,7 @@ export const coinCapApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: 'https://api.coincap.io/v2/' }),
   endpoints: (builder) => ({
     getAssets: builder.query({
-      query: () => `assets`,
+      query: (limit = '20') => `assets?limit=${limit}`,
     }),
   }),
 })

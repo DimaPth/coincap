@@ -1,0 +1,41 @@
+table {
+  table-layout: fixed;
+  width: 1024px;
+  border-collapse: collapse;
+  border: 1px solid purple;
+  color: whitesmoke;
+}
+
+thead {
+  font-size: 14px;
+  tr {
+    background: rgba(0, 0, 0);
+    th {
+      padding: 12px 10px;
+    }
+    :nth-child(2) {
+      width: 15%;
+      text-align: left;
+    }
+  }
+}
+
+tbody {
+  font-size: 14px;
+  tr {
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    td {
+      padding: 17px 10px;
+      text-align: center;
+    }
+    :nth-child(2) {
+      text-align: left;
+    }
+  }
+  :hover td {
+    background: rgba(0, 0, 0, 0.4);
+    transition: 0.4s;
+    cursor: pointer;
+  }
+}
