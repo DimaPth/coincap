@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useGetAssetsQuery } from "../../redux";
-import { Modal } from "../modal/modal";
+import { Button } from "../UI/button/button";
+import { Modal } from "../UI/modal/modal";
 import "./coinTable.module.scss";
 
 const CoinTable = () => {
@@ -55,7 +56,7 @@ const CoinTable = () => {
                         maximumFractionDigits: 2,
                       }).format(item[cell.key]) + "%"
                     ) : cell.btn ? (
-                      <button onClick={() => setModalActive(true)}>+</button>
+                      <Button onClick={() => setModalActive(true)}>add</Button>
                     ) : (
                       item[cell.key]
                     )}
