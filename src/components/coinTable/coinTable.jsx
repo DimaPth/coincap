@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useGetAssetsQuery } from "../../redux";
+import { formateNumber } from "../../services/formateNumber";
 import { Button } from "../UI/button/button";
 import { Modal } from "../UI/modal/modal";
 import style from "./coinTable.module.scss";
@@ -8,6 +9,7 @@ import style from "./coinTable.module.scss";
 const CoinTable = () => {
   const [modalActive, setModalActive] = useState(false);
   const { data = [], isLoading, isError } = useGetAssetsQuery();
+  const result = data.data;
 
   const tableConfig = [
     { header: "Rank", key: "rank" },
@@ -35,7 +37,7 @@ const CoinTable = () => {
           </tr>
         </thead>
         <tbody>
-          {data.data.map((item) => {
+          {result.map((item) => {
             return (
               <tr key={item.id}>
                 {tableConfig.map((cell) => (
@@ -45,21 +47,11 @@ const CoinTable = () => {
                         {item[cell.key]}
                       </Link>
                     ) : cell.price ? (
-                      new Intl.NumberFormat("en-US", {
-                        notation: "compact",
-                        style: "currency",
-                        currency: "USD",
-                        maximumFractionDigits: 2,
-                      }).format(item[cell.key])
+                      "$" + formateNumber(item[cell.key])
                     ) : cell.supply ? (
-                      new Intl.NumberFormat("en-US", {
-                        notation: "compact",
-                        maximumFractionDigits: 2,
-                      }).format(item[cell.key])
+                      formateNumber(item[cell.key])
                     ) : cell.percent ? (
-                      new Intl.NumberFormat("en-US", {
-                        maximumFractionDigits: 2,
-                      }).format(item[cell.key]) + "%"
+                      formateNumber(item[cell.key]) + "%"
                     ) : (
                       item[cell.key]
                     )}
