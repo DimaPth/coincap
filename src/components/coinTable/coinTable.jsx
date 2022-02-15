@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useGetAssetsQuery } from "../../redux";
-import { formateNumber } from "../../services/formateNumber";
+import { formatNumber } from "../../services/formatNumber";
 import { Button } from "../UI/button/button";
 import { Modal } from "../UI/modal/modal";
 import style from "./coinTable.module.scss";
@@ -14,7 +14,7 @@ const CoinTable = () => {
   const tableConfig = [
     { header: "Rank", key: "rank" },
     { header: "Name", key: "name", isLink: true },
-    { header: "Price", key: "priceUsd", price: true },
+    { header: "Price", key: "priceUsd", fullPrice: true },
     { header: "Market Cap", key: "marketCapUsd", price: true },
     { header: "VWAP(24Hr)", key: "vwap24Hr", price: true },
     { header: "Supply", key: "supply", supply: true },
@@ -46,12 +46,14 @@ const CoinTable = () => {
                       <Link className={style.link} to={`/${item.id}`}>
                         {item[cell.key]}
                       </Link>
+                    ) : cell.fullPrice ? (
+                      formatNumber(item[cell.key], true)
                     ) : cell.price ? (
-                      "$" + formateNumber(item[cell.key])
+                      "$" + formatNumber(item[cell.key])
                     ) : cell.supply ? (
-                      formateNumber(item[cell.key])
+                      formatNumber(item[cell.key])
                     ) : cell.percent ? (
-                      formateNumber(item[cell.key]) + "%"
+                      formatNumber(item[cell.key]) + "%"
                     ) : (
                       item[cell.key]
                     )}

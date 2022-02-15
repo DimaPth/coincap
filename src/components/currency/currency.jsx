@@ -1,15 +1,13 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { useGetCurrencyQuery } from "../../redux";
-import { formateNumber } from "../../services/formateNumber";
+import { formatNumber } from "../../services/formatNumber";
 import style from "./currency.module.scss";
 
 const Currency = () => {
   const { id } = useParams();
   const { data = [], isLoading, isError } = useGetCurrencyQuery(id);
   const result = data.data;
-
-  console.log(result);
 
   if (isLoading) return <h1>Loading...</h1>;
   if (isError) return <h1>Something gone wrong</h1>;
@@ -18,26 +16,26 @@ const Currency = () => {
     <div className={style.wrap}>
       <header>
         <div>
-          <div>{result.rank}</div>
-          <div>Rank</div>
+          <h2>{result.rank}</h2>
+          <div>RANK</div>
         </div>
         <div>
-          <div>
+          <h1>
             {result.name}({result.symbol})
-          </div>
-          <div>{"$" + formateNumber(result.priceUsd)}</div>
+          </h1>
+          <h2>{formatNumber(result.priceUsd, true)}</h2>
         </div>
         <div>
           <div>Market Cap</div>
-          <div>{"$" + formateNumber(result.marketCapUsd)}</div>
+          <h3>{"$" + formatNumber(result.marketCapUsd)}</h3>
         </div>
         <div>
           <div>Volume(24Hr)</div>
-          <div>{"$" + formateNumber(result.volumeUsd24Hr)}</div>
+          <h3>{"$" + formatNumber(result.volumeUsd24Hr)}</h3>
         </div>
         <div>
           <div>Supply</div>
-          <div>{formateNumber(result.supply)}</div>
+          <h3>{formatNumber(result.supply)}</h3>
         </div>
       </header>
     </div>
