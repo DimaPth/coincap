@@ -1,11 +1,19 @@
+import { Route, Routes } from "react-router-dom";
 import "./App.scss";
-import { CoinTable } from "./components/coinTable/coinTable";
+import { routes } from "./routes";
 
 function App() {
   return (
-    <div>
-      <CoinTable />
-    </div>
+    <>
+      <div>header</div>
+      <Routes>
+        {routes.map((route) => {
+          return (
+            <Route path={route.path} element={route.element} key={route.path} />
+          );
+        })}
+      </Routes>
+    </>
   );
 }
 

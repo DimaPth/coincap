@@ -4,6 +4,14 @@ table {
   border-collapse: collapse;
   border: 1px solid purple;
   color: whitesmoke;
+  .link {
+    color: whitesmoke;
+    text-decoration: none;
+    cursor: pointer;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }
 
 thead {
@@ -36,6 +44,5 @@ tbody {
   :hover td {
     background: rgba(0, 0, 0, 0.4);
     transition: 0.4s;
-    cursor: pointer;
   }
 }
