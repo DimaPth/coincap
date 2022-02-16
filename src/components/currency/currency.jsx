@@ -3,18 +3,16 @@ import { useParams } from "react-router-dom";
 import { useGetCurrencyHistoryQuery, useGetCurrencyQuery } from "../../redux";
 import { formatNumber } from "../../services/formatNumber";
 import {
-  LineChart,
-  Line,
   XAxis,
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend,
   ResponsiveContainer,
   AreaChart,
   Area,
 } from "recharts";
 import style from "./currency.module.scss";
+import { CustomTooltip } from "../customTooltip/customTooltip";
 
 const Currency = () => {
   const { id } = useParams();
@@ -30,8 +28,6 @@ const Currency = () => {
 
   const result = data?.data;
   const history = response?.data;
-  console.log(history);
-  console.log(new Date(1642291200000).toLocaleDateString("en-US"));
 
   return (
     <div className={style.wrap}>
@@ -67,13 +63,14 @@ const Currency = () => {
               dataKey="time"
               axisLine={false}
               tickLine={false}
-              tickCount={15}
               tickFormatter={(num) =>
                 new Date(num).toLocaleDateString("en-US", {
                   day: "numeric",
                   month: "short",
                 })
               }
+              angle={15}
+              interval="preserveStart"
             />
             <YAxis
               dataKey="priceUsd"
@@ -82,7 +79,7 @@ const Currency = () => {
               tickCount={8}
               orientation="right"
             />
-            <Tooltip />
+            <Tooltip content={<CustomTooltip />} />
             <CartesianGrid opacity={0.2} vertical={false} />
           </AreaChart>
         </ResponsiveContainer>

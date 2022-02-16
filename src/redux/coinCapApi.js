@@ -11,7 +11,7 @@ export const coinCapApi = createApi({
       query: (id) => `assets/${id}`,
     }),
     getCurrencyHistory: builder.query({
-      query: (id, interval = 'd1') => `assets/${id}/history?interval=${interval}&start=1642291200000&end=1644883200000`,
+      query: (id, interval = 'd1') => `assets/${id}/history?interval=${interval}`,
     }),
   }),
 })
