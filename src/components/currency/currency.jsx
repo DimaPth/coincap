@@ -2,6 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { useGetCurrencyQuery } from "../../redux";
 import { formatNumber } from "../../services/formatNumber";
+import { Chart } from "../chart/chart";
 import style from "./currency.module.scss";
 
 const Currency = () => {
@@ -38,6 +39,7 @@ const Currency = () => {
           <h3>{formatNumber(result.supply)}</h3>
         </div>
       </header>
+      <Chart />
     </div>
   );
 };

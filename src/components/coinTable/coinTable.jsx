@@ -11,6 +11,10 @@ const CoinTable = () => {
   const { data = [], isLoading, isError } = useGetAssetsQuery();
   const result = data.data;
 
+  let date = new Date(1613606400000);
+
+  console.log(date.getMonth());
+
   const tableConfig = [
     { header: "Rank", key: "rank" },
     { header: "Name", key: "name", isLink: true },
