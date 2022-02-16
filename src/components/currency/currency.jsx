@@ -1,17 +1,37 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { useGetCurrencyQuery } from "../../redux";
+import { useGetCurrencyHistoryQuery, useGetCurrencyQuery } from "../../redux";
 import { formatNumber } from "../../services/formatNumber";
-import { Chart } from "../chart/chart";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+  AreaChart,
+  Area,
+} from "recharts";
 import style from "./currency.module.scss";
 
 const Currency = () => {
   const { id } = useParams();
   const { data = [], isLoading, isError } = useGetCurrencyQuery(id);
-  const result = data.data;
+  const {
+    data: response = {},
+    isLoading: load,
+    isError: err,
+  } = useGetCurrencyHistoryQuery(id);
 
-  if (isLoading) return <h1>Loading...</h1>;
-  if (isError) return <h1>Something gone wrong</h1>;
+  if (isLoading || load) return <h1>Loading...</h1>;
+  if (isError || err) return <h1>Something gone wrong</h1>;
+
+  const result = data?.data;
+  const history = response?.data;
+  console.log(history);
+  console.log(new Date(1642291200000).toLocaleDateString("en-US"));
 
   return (
     <div className={style.wrap}>
@@ -39,7 +59,34 @@ const Currency = () => {
           <h3>{formatNumber(result.supply)}</h3>
         </div>
       </header>
-      <Chart />
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <ResponsiveContainer width="90%" height={400}>
+          <AreaChart data={history}>
+            <Area dataKey="priceUsd" />
+            <XAxis
+              dataKey="time"
+              axisLine={false}
+              tickLine={false}
+              tickCount={15}
+              tickFormatter={(num) =>
+                new Date(num).toLocaleDateString("en-US", {
+                  day: "numeric",
+                  month: "short",
+                })
+              }
+            />
+            <YAxis
+              dataKey="priceUsd"
+              axisLine={false}
+              tickLine={false}
+              tickCount={8}
+              orientation="right"
+            />
+            <Tooltip />
+            <CartesianGrid opacity={0.2} vertical={false} />
+          </AreaChart>
+        </ResponsiveContainer>
+      </div>
     </div>
   );
 };
