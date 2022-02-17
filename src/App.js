@@ -1,11 +1,11 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.scss";
+import { DefaultLayout } from "./components/layout/defaultLayout";
 import { routes } from "./routes";
 
 function App() {
   return (
-    <>
-      <div>header</div>
+    <DefaultLayout>
       <Routes>
         {routes.map((route) => {
           return (
@@ -13,7 +13,7 @@ function App() {
           );
         })}
       </Routes>
-    </>
+    </DefaultLayout>
   );
 }
 

@@ -31,7 +31,7 @@ const Currency = () => {
 
   return (
     <div className={style.wrap}>
-      <header>
+      <div className={style.header}>
         <div>
           <h2>{result.rank}</h2>
           <div>RANK</div>
@@ -54,7 +54,7 @@ const Currency = () => {
           <div>Supply</div>
           <h3>{formatNumber(result.supply)}</h3>
         </div>
-      </header>
+      </div>
       <div style={{ display: "flex", justifyContent: "center" }}>
         <ResponsiveContainer width="90%" height={400}>
           <AreaChart data={history}>

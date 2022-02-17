@@ -1,6 +1,6 @@
 table {
   table-layout: fixed;
-  width: 1024px;
+  width: 100%;
   border-collapse: collapse;
   border: 1px solid purple;
   color: whitesmoke;
@@ -30,11 +30,11 @@ thead {
 
 tbody {
   font-size: 14px;
+  background: rgb(54, 54, 54);
   tr {
-    background: rgba(0, 0, 0, 0.8);
     border: 1px solid rgba(0, 0, 0, 0.4);
     td {
-      padding: 17px 10px;
+      padding: 8px;
       text-align: center;
     }
     :nth-child(2) {
