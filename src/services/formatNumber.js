@@ -15,6 +15,6 @@ export const formatNumber = (num, price) => {
   }
   return new Intl.NumberFormat("en-US", {
     notation: "compact",
-    maximumFractionDigits: 2,
+    minimumFractionDigits: 2,
   }).format(num);
 };
