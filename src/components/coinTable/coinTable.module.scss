@@ -2,7 +2,7 @@ table {
   table-layout: fixed;
   width: 100%;
   border-collapse: collapse;
-  border: 1px solid purple;
+  border-radius: 20px 0 0 0;
   color: whitesmoke;
   .link {
     color: whitesmoke;
@@ -20,6 +20,9 @@ thead {
     background: rgba(0, 0, 0);
     th {
       padding: 12px 10px;
+    }
+    :first-child {
+      border-radius: 5px 0 0 0;
     }
     :nth-child(2) {
       width: 15%;

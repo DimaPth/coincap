@@ -8,12 +8,9 @@ import style from "./coinTable.module.scss";
 
 const CoinTable = () => {
   const [modalActive, setModalActive] = useState(false);
-  const { data = [], isLoading, isError } = useGetAssetsQuery();
+  const { data = [], isLoading, error } = useGetAssetsQuery(20);
   const result = data.data;
-
-  let date = new Date(1613606400000);
-
-  console.log(date.getMonth());
+  console.log(error);
 
   const tableConfig = [
     { header: "Rank", key: "rank" },
@@ -27,7 +24,7 @@ const CoinTable = () => {
   ];
 
   if (isLoading) return <h1>Loading...</h1>;
-  if (isError) return <h1>Something gone wrong</h1>;
+  if (error) return <h1>{error.error}</h1>;
 
   return (
     <div>

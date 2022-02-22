@@ -8,3 +8,17 @@
   padding: 0 0 40px;
   color: whitesmoke;
 }
+
+.rank {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(24, 198, 131);
+  padding: 20px 10px;
+  border-radius: 20px;
+}
+
+.params {
+  color: rgb(187, 186, 186);
+}

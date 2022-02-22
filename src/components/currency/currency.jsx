@@ -32,7 +32,7 @@ const Currency = () => {
   return (
     <div className={style.wrap}>
       <div className={style.header}>
-        <div>
+        <div className={style.rank}>
           <h2>{result.rank}</h2>
           <div>RANK</div>
         </div>
@@ -43,15 +43,15 @@ const Currency = () => {
           <h2>{formatNumber(result.priceUsd, true)}</h2>
         </div>
         <div>
-          <div>Market Cap</div>
+          <div className={style.params}>Market Cap</div>
           <h3>{"$" + formatNumber(result.marketCapUsd)}</h3>
         </div>
         <div>
-          <div>Volume(24Hr)</div>
+          <div className={style.params}>Volume(24Hr)</div>
           <h3>{"$" + formatNumber(result.volumeUsd24Hr)}</h3>
         </div>
         <div>
-          <div>Supply</div>
+          <div className={style.params}>Supply</div>
           <h3>{formatNumber(result.supply)}</h3>
         </div>
       </div>
