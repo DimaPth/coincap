@@ -8,9 +8,10 @@ import style from "./coinTable.module.scss";
 
 const CoinTable = () => {
   const [modalActive, setModalActive] = useState(false);
+  const [count, setCount] = useState("");
+  const [selected, setSelected] = useState({});
   const { data = [], isLoading, error } = useGetAssetsQuery(20);
   const result = data.data;
-  console.log(error);
 
   const tableConfig = [
     { header: "Rank", key: "rank" },
@@ -22,6 +23,18 @@ const CoinTable = () => {
     { header: "Volume(24Hr)", key: "volumeUsd24Hr", price: true },
     { header: "Change(24Hr)", key: "changePercent24Hr", percent: true },
   ];
+
+  const showModal = (selected) => {
+    setSelected(selected);
+    setModalActive(true);
+  };
+
+  const setStorage = (selected, count) => {
+    setSelected((selected = { ...selected, count }));
+    localStorage.setItem(selected.id, JSON.stringify(selected));
+    setModalActive(false);
+    setCount("");
+  };
 
   if (isLoading) return <h1>Loading...</h1>;
   if (error) return <h1>{error.error}</h1>;
@@ -61,14 +74,47 @@ const CoinTable = () => {
                   </td>
                 ))}
                 <td>
-                  <Button onClick={() => setModalActive(true)}>add</Button>
+                  <Button onClick={() => showModal(item)}>add</Button>
                 </td>
               </tr>
             );
           })}
         </tbody>
       </table>
-      <Modal active={modalActive} setActive={setModalActive}></Modal>
+      <Modal active={modalActive} setActive={setModalActive}>
+        <div className={style.modal}>
+          <div>
+            <label id="count" className={style.label}>
+              Enter count
+            </label>
+            <input
+              name="count"
+              className={style.input}
+              value={count}
+              onChange={(e) => {
+                setCount(e.target.value);
+              }}
+              type="number"
+            />
+          </div>
+          <div className={style.btnWrap}>
+            <Button
+              onClick={() => setStorage(selected, count)}
+              disabled={count < 1}
+            >
+              add
+            </Button>
+            <Button
+              onClick={() => {
+                setModalActive(false);
+                setCount("");
+              }}
+            >
+              cancel
+            </Button>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 };

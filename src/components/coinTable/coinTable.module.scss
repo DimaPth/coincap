@@ -37,7 +37,7 @@ tbody {
   tr {
     border: 1px solid rgba(0, 0, 0, 0.4);
     td {
-      padding: 8px;
+      padding: 12px 0;
       text-align: center;
     }
     :nth-child(2) {
@@ -47,5 +47,23 @@ tbody {
   :hover td {
     background: rgba(0, 0, 0, 0.4);
     transition: 0.4s;
+  }
+}
+
+.modal {
+  color: #000;
+  display: flex;
+  flex-direction: column;
+  .label {
+    margin-right: 20px;
+  }
+  .input {
+    padding: 3px 7px;
+    width: 100px;
+  }
+  .btnWrap {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 15px;
   }
 }
