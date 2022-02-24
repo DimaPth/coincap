@@ -1,0 +1,23 @@
+.table {
+  text-align: left;
+  width: 500px;
+  margin-bottom: 20px;
+  // border: 1px solid #dddddd;
+  empty-cells: hide;
+  th {
+    font-weight: bold;
+    padding: 5px;
+    background: #efefef;
+    border: 1px solid #dddddd;
+    &:last-child {
+      text-align: center;
+    }
+  }
+  td {
+    border: 1px solid #dddddd;
+    padding: 8px;
+    &:last-child {
+      text-align: center;
+    }
+  }
+}

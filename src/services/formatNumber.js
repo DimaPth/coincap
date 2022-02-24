@@ -1,6 +1,6 @@
 export const formatNumber = (num, price) => {
   if(price) {
-    if(num < 2) {
+    if(num < 10) {
       return new Intl.NumberFormat("en-US", {
         style: 'currency',
         currency: 'USD',

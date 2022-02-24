@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { useGetAssetsQuery } from "../../redux";
+import { addLocalItem } from "../../redux/localstoreSlice";
 import { formatNumber } from "../../services/formatNumber";
 import { Button } from "../UI/button/button";
 import { Modal } from "../UI/modal/modal";
@@ -11,6 +13,7 @@ const CoinTable = () => {
   const [count, setCount] = useState("");
   const [selected, setSelected] = useState({});
   const { data = [], isLoading, error } = useGetAssetsQuery(20);
+  const dispatch = useDispatch();
   const result = data.data;
 
   const tableConfig = [
@@ -30,8 +33,15 @@ const CoinTable = () => {
   };
 
   const setStorage = (selected, count) => {
-    setSelected((selected = { ...selected, count }));
-    localStorage.setItem(selected.id, JSON.stringify(selected));
+    let localItem = JSON.parse(localStorage.getItem(selected.id));
+    if (localItem) {
+      setSelected(
+        (selected = { ...localItem, count: localItem.count + +count })
+      );
+    } else {
+      setSelected((selected = { ...selected, count: +count }));
+    }
+    dispatch(addLocalItem(selected));
     setModalActive(false);
     setCount("");
   };
@@ -41,7 +51,7 @@ const CoinTable = () => {
 
   return (
     <div>
-      <table>
+      <table className={style.table}>
         <thead>
           <tr>
             {tableConfig.map((cell) => {
