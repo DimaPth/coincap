@@ -26,8 +26,11 @@ const Currency = () => {
   if (isLoading || load) return <h1>Loading...</h1>;
   if (isError || err) return <h1>Something gone wrong</h1>;
 
-  const result = data?.data;
-  const history = response?.data;
+  const result = data.data;
+  const history = response.data.map((item) => ({
+    ...item,
+    priceUsd: +item.priceUsd,
+  }));
 
   return (
     <div className={style.wrap}>

@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useGetAssetsQuery } from "../../redux";
+import { useGetAssetsByIdsQuery, useGetAssetsQuery } from "../../redux";
 import { formatNumber } from "../../services/formatNumber";
+import { getNewWalletPrice } from "../../services/getNewWalletPrice";
+import { getPercent } from "../../services/getPercent";
 import { getWalletPrice } from "../../services/getWalletPrice";
 import { Button } from "../UI/button/button";
 import { Modal } from "../UI/modal/modal";
@@ -10,9 +12,38 @@ import style from "./header.module.scss";
 
 const Header = () => {
   const [modalActive, setModalActive] = useState(false);
+  const [walletPrice, setWalletPrice] = useState(0);
+  const [newWalletPrice, setNewWalletPrice] = useState(0);
+  const [difference, setDifference] = useState("0.00");
+  const [percent, setPercent] = useState("0.00%");
   const { data = {}, isSuccess, error } = useGetAssetsQuery(3);
   const { localData } = useSelector((state) => state.local);
-  const walletPrice = getWalletPrice(localData);
+
+  const ids = localData
+    .map((item) => {
+      return item.id;
+    })
+    .join(",");
+
+  const { data: dataByIds = {}, isSuccess: newDataSuccess } =
+    useGetAssetsByIdsQuery(ids);
+
+  useEffect(() => {
+    if (newDataSuccess) {
+      setWalletPrice(getWalletPrice(localData));
+      setNewWalletPrice(getNewWalletPrice(localData, dataByIds));
+    }
+  }, [localData, dataByIds]);
+
+  useEffect(() => {
+    if (newWalletPrice && walletPrice) {
+      setDifference((newWalletPrice - walletPrice).toFixed(2));
+      setPercent(getPercent(newWalletPrice, walletPrice));
+    } else {
+      setDifference("0.00");
+      setPercent("0.00%");
+    }
+  }, [walletPrice, newWalletPrice]);
 
   const result = data.data;
 
@@ -28,7 +59,9 @@ const Header = () => {
           ))}
       </div>
       <div className={style.wallet}>
-        {walletPrice}
+        <span>{formatNumber(newWalletPrice, true)}</span>
+        <span>{difference > 0 ? "+" + difference : difference}</span>
+        <span>({percent})</span>
         <Button onClick={() => setModalActive(true)}>info</Button>
       </div>
       <Modal active={modalActive} setActive={setModalActive}>

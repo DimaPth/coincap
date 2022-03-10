@@ -1,20 +1,16 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { removeLocalItem } from "../../redux/localstoreSlice";
-import { formatNumber } from "../../services/formatNumber";
-import { getWalletPrice } from "../../services/getWalletPrice";
+import { removeLocalItem } from "../../redux/localStoreSlice";
 import { Button } from "../UI/button/button";
 import style from "./wallet.module.scss";
 
 const Wallet = () => {
   const { localData } = useSelector((state) => state.local);
   const dispatch = useDispatch();
-  const walletPrice = getWalletPrice(localData);
   const tableConfig = [
     { header: "Name", key: "name" },
     { header: "Count", key: "count" },
-    { header: "Price", key: "priceUsd", price: true },
   ];
   return (
     <div>
@@ -31,11 +27,7 @@ const Wallet = () => {
           {localData.map((item) => (
             <tr key={item.id}>
               {tableConfig.map((cell) => (
-                <td key={cell.header}>
-                  {cell.price
-                    ? formatNumber(item[cell.key], true)
-                    : item[cell.key]}
-                </td>
+                <td key={cell.header}>{item[cell.key]}</td>
               ))}
               <td>
                 <Button onClick={() => dispatch(removeLocalItem(item.id))}>
@@ -44,10 +36,6 @@ const Wallet = () => {
               </td>
             </tr>
           ))}
-          <tr>
-            <td>Total:</td>
-            <td colSpan={3}>{walletPrice}</td>
-          </tr>
         </tbody>
       </table>
       <div></div>

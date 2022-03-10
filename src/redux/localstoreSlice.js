@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 
-export const localstoreSlice = createSlice({
+export const localStoreSlice = createSlice({
   name: 'local',
   initialState: {
     localData: Object.values(localStorage).map((item) => JSON.parse(item)) || [],
@@ -18,4 +18,4 @@ export const localstoreSlice = createSlice({
   },
 })
 
-export const {addLocalItem, removeLocalItem, getFullPrice} = localstoreSlice.actions;
+export const {addLocalItem, removeLocalItem, getFullPrice} = localStoreSlice.actions;

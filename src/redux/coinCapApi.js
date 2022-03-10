@@ -7,6 +7,9 @@ export const coinCapApi = createApi({
     getAssets: builder.query({
       query: (limit = '20') => `assets?limit=${limit}`,
     }),
+    getAssetsByIds: builder.query({
+      query: (ids) => `assets?ids=${ids}`
+    }),
     getCurrency: builder.query({
       query: (id) => `assets/${id}`,
     }),
@@ -16,4 +19,4 @@ export const coinCapApi = createApi({
   }),
 })
 
-export const { useGetAssetsQuery, useGetCurrencyQuery, useGetCurrencyHistoryQuery } = coinCapApi
+export const { useGetAssetsQuery, useGetAssetsByIdsQuery, useGetCurrencyQuery, useGetCurrencyHistoryQuery } = coinCapApi

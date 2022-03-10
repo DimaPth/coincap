@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { useGetAssetsQuery } from "../../redux";
-import { addLocalItem } from "../../redux/localstoreSlice";
+import { addLocalItem } from "../../redux/localStoreSlice";
 import { formatNumber } from "../../services/formatNumber";
 import { Button } from "../UI/button/button";
 import { Modal } from "../UI/modal/modal";
@@ -14,7 +14,6 @@ const CoinTable = () => {
   const [selected, setSelected] = useState({});
   const { data = [], isLoading, error } = useGetAssetsQuery(20);
   const dispatch = useDispatch();
-  const result = data.data;
 
   const tableConfig = [
     { header: "Rank", key: "rank" },
@@ -48,6 +47,8 @@ const CoinTable = () => {
 
   if (isLoading) return <h1>Loading...</h1>;
   if (error) return <h1>{error.error}</h1>;
+
+  const result = data.data;
 
   return (
     <div>

@@ -1,11 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { coinCapApi } from './coinCapApi'
-import { localstoreSlice } from './localstoreSlice'
+import { localStoreSlice } from './localStoreSlice'
 
 export const store = configureStore({
   reducer: {
     [coinCapApi.reducerPath]: coinCapApi.reducer,
-    local: localstoreSlice.reducer,
+    local: localStoreSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(coinCapApi.middleware),
