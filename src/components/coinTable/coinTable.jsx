@@ -8,8 +8,9 @@ import style from "./coinTable.module.scss";
 
 const CoinTable = () => {
   const [modalActive, setModalActive] = useState(false);
+  const [limit, setLimit] = useState(20);
   const [selected, setSelected] = useState({});
-  const { data = [], isLoading, error } = useGetAssetsQuery(20);
+  const { data = [], isLoading, error } = useGetAssetsQuery(limit);
 
   const tableConfig = [
     { header: "Rank", key: "rank" },
@@ -21,6 +22,10 @@ const CoinTable = () => {
     { header: "Volume(24Hr)", key: "volumeUsd24Hr", price: true },
     { header: "Change(24Hr)", key: "changePercent24Hr", percent: true },
   ];
+
+  const viewMore = () => {
+    setLimit((prev) => prev + 20);
+  };
 
   const showModal = (selected) => {
     setSelected(selected);
@@ -74,6 +79,11 @@ const CoinTable = () => {
           })}
         </tbody>
       </table>
+      <div className={style.button}>
+        <Button onClick={viewMore} disabled={limit >= 2000}>
+          View more
+        </Button>
+      </div>
       <AddCurrencyModal
         active={modalActive}
         setActive={setModalActive}

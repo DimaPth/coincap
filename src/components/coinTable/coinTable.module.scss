@@ -48,6 +48,18 @@
   }
 }
 
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px auto;
+  & > button {
+    border-radius: 20px;
+    font-weight: bold;
+    padding: 10px 20px;
+  }
+}
+
 .modal {
   display: flex;
   flex-direction: column;
