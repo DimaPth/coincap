@@ -10,7 +10,7 @@ const CoinTable = () => {
   const [modalActive, setModalActive] = useState(false);
   const [limit, setLimit] = useState(20);
   const [selected, setSelected] = useState({});
-  const { data = [], isLoading, error } = useGetAssetsQuery(limit);
+  const { data = [], isLoading, error, isFetching } = useGetAssetsQuery(limit);
 
   const tableConfig = [
     { header: "Rank", key: "rank" },
@@ -81,7 +81,7 @@ const CoinTable = () => {
       </table>
       <div className={style.button}>
         <Button onClick={viewMore} disabled={limit >= 2000}>
-          View more
+          {isFetching ? "loading" : "View more"}
         </Button>
       </div>
       <AddCurrencyModal
