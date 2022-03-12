@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useGetCurrencyHistoryQuery, useGetCurrencyQuery } from "../../redux";
 import { formatNumber } from "../../services/formatNumber";
@@ -13,6 +13,8 @@ import {
 } from "recharts";
 import style from "./currency.module.scss";
 import { CustomTooltip } from "../customTooltip/customTooltip";
+import { AddCurrencyModal } from "../addCurrencyModal/addCurrencyModal";
+import { Button } from "../UI/button/button";
 
 const Currency = () => {
   const { id } = useParams();
@@ -22,9 +24,16 @@ const Currency = () => {
     isLoading: load,
     isError: err,
   } = useGetCurrencyHistoryQuery(id);
+  const [modalActive, setModalActive] = useState(false);
+  const [currency, setCurrency] = useState({});
 
   if (isLoading || load) return <h1>Loading...</h1>;
   if (isError || err) return <h1>Something gone wrong</h1>;
+
+  const showModal = (selected) => {
+    setCurrency(selected);
+    setModalActive(true);
+  };
 
   const result = data.data;
   const history = response.data.map((item) => ({
@@ -41,7 +50,7 @@ const Currency = () => {
         </div>
         <div>
           <h1>
-            {result.name}({result.symbol})
+            {result.name}({result.symbol}){" "}
           </h1>
           <h2>{formatNumber(result.priceUsd, true)}</h2>
         </div>
@@ -56,6 +65,9 @@ const Currency = () => {
         <div>
           <div className={style.params}>Supply</div>
           <h3>{formatNumber(result.supply)}</h3>
+        </div>
+        <div>
+          <Button onClick={() => showModal(data.data)}>Add to wallet</Button>
         </div>
       </div>
       <div style={{ display: "flex", justifyContent: "center" }}>
@@ -87,6 +99,12 @@ const Currency = () => {
           </AreaChart>
         </ResponsiveContainer>
       </div>
+      <AddCurrencyModal
+        active={modalActive}
+        setActive={setModalActive}
+        currency={currency}
+        setCurrency={setCurrency}
+      />
     </div>
   );
 };

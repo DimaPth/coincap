@@ -16,7 +16,7 @@ const Header = () => {
   const [newWalletPrice, setNewWalletPrice] = useState(0);
   const [difference, setDifference] = useState("0.00");
   const [percent, setPercent] = useState("0.00%");
-  const { data = {}, isSuccess, error } = useGetAssetsQuery(3);
+  const { data = {}, isLoading, isSuccess, error } = useGetAssetsQuery(3);
   const { localData } = useSelector((state) => state.local);
 
   const ids = localData
@@ -51,6 +51,7 @@ const Header = () => {
     <div className={style.wrap}>
       <div className={style.popular}>
         {error && error.error}
+        {isLoading && <h2>Loading...</h2>}
         {isSuccess &&
           result.map((item) => (
             <div key={item.id}>
@@ -62,7 +63,7 @@ const Header = () => {
         <span>{formatNumber(newWalletPrice, true)}</span>
         <span>{difference > 0 ? "+" + difference : difference}</span>
         <span>({percent})</span>
-        <Button onClick={() => setModalActive(true)}>info</Button>
+        <Button onClick={() => setModalActive(true)}>Wallet</Button>
       </div>
       <Modal active={modalActive} setActive={setModalActive}>
         <Wallet />

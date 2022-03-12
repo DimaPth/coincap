@@ -1,0 +1,16 @@
+.modal {
+  display: flex;
+  flex-direction: column;
+  .label {
+    margin-right: 20px;
+  }
+  .input {
+    padding: 3px 7px;
+    width: 100px;
+  }
+  .btnWrap {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 15px;
+  }
+}

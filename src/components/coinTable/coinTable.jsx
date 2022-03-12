@@ -1,19 +1,15 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { useGetAssetsQuery } from "../../redux";
-import { addLocalItem } from "../../redux/localStoreSlice";
 import { formatNumber } from "../../services/formatNumber";
+import { AddCurrencyModal } from "../addCurrencyModal/addCurrencyModal";
 import { Button } from "../UI/button/button";
-import { Modal } from "../UI/modal/modal";
 import style from "./coinTable.module.scss";
 
 const CoinTable = () => {
   const [modalActive, setModalActive] = useState(false);
-  const [count, setCount] = useState("");
   const [selected, setSelected] = useState({});
   const { data = [], isLoading, error } = useGetAssetsQuery(20);
-  const dispatch = useDispatch();
 
   const tableConfig = [
     { header: "Rank", key: "rank" },
@@ -29,20 +25,6 @@ const CoinTable = () => {
   const showModal = (selected) => {
     setSelected(selected);
     setModalActive(true);
-  };
-
-  const setStorage = (selected, count) => {
-    let localItem = JSON.parse(localStorage.getItem(selected.id));
-    if (localItem) {
-      setSelected(
-        (selected = { ...localItem, count: localItem.count + +count })
-      );
-    } else {
-      setSelected((selected = { ...selected, count: +count }));
-    }
-    dispatch(addLocalItem(selected));
-    setModalActive(false);
-    setCount("");
   };
 
   if (isLoading) return <h1>Loading...</h1>;
@@ -92,40 +74,12 @@ const CoinTable = () => {
           })}
         </tbody>
       </table>
-      <Modal active={modalActive} setActive={setModalActive}>
-        <div className={style.modal}>
-          <div>
-            <label id="count" className={style.label}>
-              Enter count
-            </label>
-            <input
-              name="count"
-              className={style.input}
-              value={count}
-              onChange={(e) => {
-                setCount(e.target.value);
-              }}
-              type="number"
-            />
-          </div>
-          <div className={style.btnWrap}>
-            <Button
-              onClick={() => setStorage(selected, count)}
-              disabled={count < 1}
-            >
-              add
-            </Button>
-            <Button
-              onClick={() => {
-                setModalActive(false);
-                setCount("");
-              }}
-            >
-              cancel
-            </Button>
-          </div>
-        </div>
-      </Modal>
+      <AddCurrencyModal
+        active={modalActive}
+        setActive={setModalActive}
+        currency={selected}
+        setCurrency={setSelected}
+      />
     </div>
   );
 };
