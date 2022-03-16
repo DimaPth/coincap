@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useWindowSize } from "../../hooks/useWindowSize";
 import { useGetAssetsQuery } from "../../redux";
 import { formatNumber } from "../../services/formatNumber";
 import { AddCurrencyModal } from "../addCurrencyModal/addCurrencyModal";
@@ -10,6 +11,7 @@ const CoinTable = () => {
   const [modalActive, setModalActive] = useState(false);
   const [limit, setLimit] = useState(20);
   const [selected, setSelected] = useState({});
+  const [windowWidth, windowHeight] = useWindowSize();
   const { data = [], isLoading, error, isFetching } = useGetAssetsQuery(limit);
 
   const tableConfig = [
@@ -22,6 +24,10 @@ const CoinTable = () => {
     { header: "Volume(24Hr)", key: "volumeUsd24Hr", price: true },
     { header: "Change(24Hr)", key: "changePercent24Hr", percent: true },
   ];
+
+  if (windowWidth < 1024) {
+    tableConfig.splice(4, 2);
+  }
 
   const viewMore = () => {
     setLimit((prev) => prev + 20);
