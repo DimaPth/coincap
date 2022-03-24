@@ -2,12 +2,15 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { removeLocalItem } from "../../redux/localStoreSlice";
+import { formatNumber } from "../../services/formatNumber";
 import { Button } from "../UI/button/button";
 import style from "./wallet.module.scss";
 
-const Wallet = () => {
+const Wallet = ({ walletPrice, difference, percent }) => {
   const { localData } = useSelector((state) => state.local);
   const dispatch = useDispatch();
+
+  console.log(walletPrice, difference, percent);
 
   const tableConfig = [
     { header: "Name", key: "name" },
@@ -43,6 +46,21 @@ const Wallet = () => {
                 </td>
               </tr>
             ))
+          )}
+          {walletPrice ? (
+            <tr>
+              <td>Total:</td>
+              <td colSpan={2}>
+                <div className={style.total}>
+                  <span>{formatNumber(walletPrice, true)}</span>
+                  <span>
+                    {difference > 0 ? "+" + difference : difference} ({percent})
+                  </span>
+                </div>
+              </td>
+            </tr>
+          ) : (
+            ""
           )}
         </tbody>
       </table>

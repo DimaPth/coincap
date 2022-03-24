@@ -76,3 +76,36 @@
     margin-top: 15px;
   }
 }
+
+@media (max-width: 768px) {
+  .table {
+    thead {
+      font-size: 12px;
+      tr {
+        :first-child {
+          border-radius: unset;
+          text-align: left;
+        }
+        :not(:first-child) {
+          width: unset;
+          text-align: right;
+        }
+      }
+    }
+    tbody {
+      font-size: 12px;
+      tr {
+        td {
+          padding: 12px 10px;
+        }
+        :first-child {
+          text-align: left;
+        }
+        :not(:first-child) {
+          width: unset;
+          text-align: right;
+        }
+      }
+    }
+  }
+}

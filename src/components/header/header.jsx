@@ -51,22 +51,29 @@ const Header = () => {
     <div className={style.wrap}>
       <div className={style.popular}>
         {error && error.error}
-        {isLoading && <h2>Loading...</h2>}
+        {isLoading && <h2>...</h2>}
         {isSuccess &&
           result.map((item) => (
-            <div key={item.id}>
+            <div key={item.id} className={style.popular__item}>
               {item.name}: {formatNumber(item.priceUsd, true)}
             </div>
           ))}
       </div>
       <div className={style.wallet}>
-        <span>{formatNumber(newWalletPrice, true)}</span>
-        <span>{difference > 0 ? "+" + difference : difference}</span>
-        <span>({percent})</span>
+        <div className={style.wallet__price}>
+          <span>{formatNumber(newWalletPrice, true)}</span>
+          <span>
+            {difference > 0 ? "+" + difference : difference} ({percent})
+          </span>
+        </div>
         <Button onClick={() => setModalActive(true)}>Wallet</Button>
       </div>
       <Modal active={modalActive} setActive={setModalActive}>
-        <Wallet />
+        <Wallet
+          walletPrice={newWalletPrice}
+          difference={difference}
+          percent={percent}
+        />
       </Modal>
     </div>
   );

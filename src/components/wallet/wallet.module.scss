@@ -20,4 +20,23 @@
       text-align: center;
     }
   }
+  .total {
+    display: flex;
+    justify-content: center;
+    :first-child {
+      margin-right: 20px;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .table {
+    width: 250px;
+    .total {
+      flex-direction: column;
+      :first-child {
+        margin-right: 0px;
+      }
+    }
+  }
 }

@@ -70,34 +70,36 @@ const Currency = () => {
           <Button onClick={() => showModal(data.data)}>Add to wallet</Button>
         </div>
       </div>
-      <div style={{ display: "flex", justifyContent: "center" }}>
-        <ResponsiveContainer width="90%" height={400}>
-          <AreaChart data={history}>
-            <Area dataKey="priceUsd" />
-            <XAxis
-              dataKey="time"
-              axisLine={false}
-              tickLine={false}
-              tickFormatter={(num) =>
-                new Date(num).toLocaleDateString("en-US", {
-                  day: "numeric",
-                  month: "short",
-                })
-              }
-              angle={15}
-              interval="preserveStart"
-            />
-            <YAxis
-              dataKey="priceUsd"
-              axisLine={false}
-              tickLine={false}
-              tickCount={8}
-              orientation="right"
-            />
-            <Tooltip content={<CustomTooltip />} />
-            <CartesianGrid opacity={0.2} vertical={false} />
-          </AreaChart>
-        </ResponsiveContainer>
+      <div className={style.chart}>
+        <div className={style.chart__container}>
+          <ResponsiveContainer>
+            <AreaChart data={history}>
+              <Area dataKey="priceUsd" />
+              <XAxis
+                dataKey="time"
+                axisLine={false}
+                tickLine={false}
+                tickFormatter={(num) =>
+                  new Date(num).toLocaleDateString("en-US", {
+                    day: "numeric",
+                    month: "short",
+                  })
+                }
+                angle={15}
+                interval="preserveStart"
+              />
+              <YAxis
+                dataKey="priceUsd"
+                axisLine={false}
+                tickLine={false}
+                tickCount={8}
+                orientation="right"
+              />
+              <Tooltip content={<CustomTooltip />} />
+              <CartesianGrid opacity={0.2} vertical={false} />
+            </AreaChart>
+          </ResponsiveContainer>
+        </div>
       </div>
       <AddCurrencyModal
         active={modalActive}

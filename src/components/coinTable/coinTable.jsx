@@ -29,6 +29,11 @@ const CoinTable = () => {
     tableConfig.splice(4, 2);
   }
 
+  if (windowWidth < 768) {
+    tableConfig.splice(3, 2);
+    tableConfig.shift();
+  }
+
   const viewMore = () => {
     setLimit((prev) => prev + 20);
   };
