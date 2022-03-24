@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/coincap-practice/static/css/main.5bd6aa12.css",
-    "main.js": "/coincap-practice/static/js/main.dc9c7a50.js",
+    "main.js": "/coincap-practice/static/js/main.b6fa33e4.js",
     "index.html": "/coincap-practice/index.html",
     "main.5bd6aa12.css.map": "/coincap-practice/static/css/main.5bd6aa12.css.map",
-    "main.dc9c7a50.js.map": "/coincap-practice/static/js/main.dc9c7a50.js.map"
+    "main.b6fa33e4.js.map": "/coincap-practice/static/js/main.b6fa33e4.js.map"
   },
   "entrypoints": [
     "static/css/main.5bd6aa12.css",
-    "static/js/main.dc9c7a50.js"
+    "static/js/main.b6fa33e4.js"
   ]
 }
